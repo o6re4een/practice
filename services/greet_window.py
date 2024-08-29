@@ -6,7 +6,7 @@ from ui.greet_window import UiGreetWindow
 class GreetWindow(TimerWindow, UiGreetWindow):
     def __init__(self, main_app):
         # Передаем целевую дату и время в базовый класс TimerWindow
-        super().__init__(target_time="2024-10-10 10:25:00")
+        super().__init__(target_time=main_app.target_time)
         self.setupUi(self)
         self.main_app = main_app
         self._app_info = AppInfo()
@@ -23,6 +23,9 @@ class GreetWindow(TimerWindow, UiGreetWindow):
 
             # Пример переключения окна
             self.want_sponsor_btn.clicked.connect(self.swith_to_sponsor)
+            self.want_info_btn.clicked.connect(
+                lambda: self.main_app.switch_window("Information")
+            )
         except Exception as _e:
             print("Ошибка при инициализации: ", _e)
 

@@ -2,13 +2,17 @@ import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QStackedWidget
 
 # Импорт расширенных окон
+from services.confirm_sponsor_window import ConfirmSponosorWindow
 from services.greet_window import GreetWindow
+from services.information_window import InformationWindow
 from services.sponsor_window import SponsorWindow
 
 
 class MainApp(QMainWindow):
     def __init__(self):
         super(MainApp, self).__init__()
+
+        self.target_time = "2024-10-10 10:25:00"
 
         # Добавим отладочное сообщение для проверки инициализации
         print("Инициализация MainApp началась")
@@ -21,6 +25,8 @@ class MainApp(QMainWindow):
             self.windows = {}
             self.add_window(GreetWindow(self), "Greet")
             self.add_window(SponsorWindow(self), "Sponsor")
+            self.add_window(ConfirmSponosorWindow(self), "ConfirmSponsor")
+            self.add_window(InformationWindow(self), "Information")
 
             # Устанавливаем начальное окно
             self.stacked_widget.setCurrentIndex(0)
@@ -42,7 +48,7 @@ class MainApp(QMainWindow):
         """Переключает на окно по имени."""
         try:
             if name in self.windows:
-                print(self.windows[name], "AA")
+
                 self.stacked_widget.setCurrentWidget(self.windows[name])
                 print(f"Переключено на окно: {name}")
             else:
